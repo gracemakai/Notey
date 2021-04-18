@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "276979544085",
+    "firebase_url": "https://side-projects-d893c-default-rtdb.firebaseio.com",
+    "project_id": "side-projects-d893c",
+    "storage_bucket": "side-projects-d893c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276979544085:android:db6e29a23a53c4f384de1c",
+        "android_client_info": {
+          "package_name": "com.grace.notey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276979544085-bodnl36tcagh95o6uonb8amn99e2a1bk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDuC18PECpuDl0r7a9JlHHLcdBS6F0Ub8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276979544085-bodnl36tcagh95o6uonb8amn99e2a1bk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "276979544085-um2emkvru3l1kh01adcbgjbels7tjsh7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.grace.notey"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276979544085:android:4d56ce6ec2f1139284de1c",
+        "android_client_info": {
+          "package_name": "com.grace.remindme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276979544085-bodnl36tcagh95o6uonb8amn99e2a1bk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDuC18PECpuDl0r7a9JlHHLcdBS6F0Ub8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276979544085-bodnl36tcagh95o6uonb8amn99e2a1bk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "276979544085-um2emkvru3l1kh01adcbgjbels7tjsh7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.grace.notey"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
