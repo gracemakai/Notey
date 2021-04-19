@@ -7,24 +7,6 @@ import 'package:notey/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-/*  await Firebase.initializeApp(
-    name: "Notey",
-    options: Platform.isIOS || Platform.isMacOS
-        ? const FirebaseOptions(
-      appId: '1:276979544085:ios:8ffc0ebc3d8fc10184de1c',
-      apiKey: 'AIzaSyBc2B_XJpk5xhhS7-0iFxrBSYRqLcseqbY',
-      projectId: 'side-projects-d893c',
-      messagingSenderId: '276979544085',
-      databaseURL: 'https://side-projects-d893c-default-rtdb.firebaseio.com/',
-    )
-        : const FirebaseOptions(
-      appId: '1:276979544085:android:db6e29a23a53c4f384de1c',
-      apiKey: 'AIzaSyBDuC18PECpuDl0r7a9JlHHLcdBS6F0Ub8',
-      messagingSenderId: '276979544085',
-      projectId: 'side-projects-d893c',
-      databaseURL: 'https://side-projects-d893c-default-rtdb.firebaseio.com',
-    ),
-  );*/
   runApp(MyApp());
 }
 
