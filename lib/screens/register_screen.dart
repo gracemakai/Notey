@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:notey/helper/authentication.dart';
+import 'package:notey/helper/util.dart';
 
+import 'homePage.dart';
 import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -12,6 +15,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _phoneTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
   final _confirmPasswordTextController = TextEditingController();
+
+  void _passwordsMatch(String password, String confirmPassword) {
+    if(password.length < 6 && confirmPassword.length < 6){
+      Util().showToast("Password should be at least 6 characters", context);
+    }
+
+    if (password == confirmPassword) {
+      _authenticate(_emailTextController.text, _passwordTextController.text);
+    } else {
+      Util().showToast("Passwords don't match", context);
+    }
+  }
+
+  void _areAllFieldsFilled() {
+    if (_emailTextController.text.isNotEmpty &&
+        _passwordTextController.text.isNotEmpty &&
+        _nameTextController.text.isNotEmpty &&
+        _phoneTextController.text.isNotEmpty &&
+        _confirmPasswordTextController.text.isNotEmpty) {
+      if (Util().isEmailCorrect(_emailTextController.text)) {
+        _passwordsMatch(
+            _passwordTextController.text, _confirmPasswordTextController.text);
+      } else {
+        Util().showToast("Email format is incorrect", context);
+      }
+    } else {
+      Util().showToast("Fill out all fields", context);
+
+    }
+  }
+
+  void _authenticate(String email, String password) {
+    AuthenticationHelper()
+        .signUp(email: email, password: password)
+        .then((result) {
+      if (result == null) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => MyHomePage()));
+      } else {
+        Util().showToast("Something went wrong", context);
+        print(result);
+
+      }
+    });
+  }
 
   void _navigateToLoginScreen() {
     Navigator.push(
@@ -147,6 +195,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         TextField(
                           style: TextStyle(color: Colors.white),
+                          obscureText: true,
                           controller: _passwordTextController,
                           decoration: InputDecoration(
                             enabled: true,
@@ -174,6 +223,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         TextField(
                           style: TextStyle(color: Colors.white),
+                          obscureText: true,
                           controller: _confirmPasswordTextController,
                           decoration: InputDecoration(
                             enabled: true,
@@ -209,7 +259,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         style: ElevatedButton.styleFrom(
                           primary: getColorFromHex("#F9C906"),
                         ),
-                        onPressed: () {}),
+                        onPressed: () {
+                          _areAllFieldsFilled();
+                        }),
                   ),
                   TextButton(
                     child: Text(
@@ -229,5 +281,3 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
-
-

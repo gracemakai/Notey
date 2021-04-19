@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:notey/screens/homePage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:notey/screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -14,11 +17,10 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  final Future<FirebaseApp> _future = Firebase.initializeApp();
-
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -34,15 +36,22 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.indigo,
           
         ),
-        home: FutureBuilder(
-          future: _future,
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text(snapshot.error.toString());
-            } else {
-              return LoginScreen();
-            }
-          },
-        ));
+        home:
+              _navigateToNextScreen(),
+
+    );}
   }
-}
+
+ Widget _navigateToNextScreen(){
+   var user = FirebaseAuth.instance.currentUser;
+
+   if (user == null) {
+            print('User is currently signed out!');
+            return LoginScreen();
+          } else {
+            print('User is signed in!');
+            return MyHomePage();
+          }
+
+  }
+

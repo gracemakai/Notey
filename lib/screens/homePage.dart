@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:notey/helper/authentication.dart';
+import 'package:notey/helper/util.dart';
 import 'package:notey/main.dart';
 import 'package:notey/resources/strings.dart';
 import 'package:notey/screens/new_note.dart';
 import 'package:notey/screens/note_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+
+import 'login_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -118,6 +122,42 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _logOut(){
+    AuthenticationHelper().signOut().then((value) {
+      if (value == null) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => LoginScreen()));
+      } else {
+        Util().showToast("Something wen't wrong. Try again", context);
+      }
+    }
+      );
+  }
+
+  _logOutDialog(String value){
+    showDialog(context: context, builder: (BuildContext context){
+      return AlertDialog(
+        title: Text('Log Out?'),  // To display the title it is optional
+        content: Text('Are you sure you want to log out?'),   // Message which will be pop up on the screen
+        // Action widget which will provide the user to acknowledge the choice
+        actions: [
+          FlatButton(           // FlatButton widget is used to make a text to work like a button
+            textColor: Colors.black,
+            onPressed: () {
+              Navigator.of(context).pop();},        // function used to perform after pressing the button
+            child: Text('CANCEL'),
+          ),
+          FlatButton(
+            textColor: Colors.black,
+            onPressed: () {_logOut();},
+            child: Text('ACCEPT'),
+          ),
+        ],
+      );
+    });
+
+  }
+
   Color getColorFromHex(String hexColor) {
     hexColor = hexColor.replaceAll("#", "");
     if (hexColor.length == 6) {
@@ -133,6 +173,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: getColorFromHex("#F9C906"),
       appBar: AppBar(
+        actions: [PopupMenuButton<String>(
+        onSelected: _logOutDialog,
+        itemBuilder: (BuildContext context) {
+          return {'Logout'}.map((String choice) {
+            return PopupMenuItem<String>(
+              value: choice,
+              child: Text(choice),
+            );
+          }).toList();
+        },)
+        ],
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(

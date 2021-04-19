@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notey/helper/authentication.dart';
+import 'package:notey/helper/util.dart';
 import 'package:notey/screens/register_screen.dart';
 
 import 'homePage.dart';
@@ -11,6 +13,29 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
+
+  void _authenticate(String email, String password){
+    AuthenticationHelper()
+        .signIn(email: email, password: password)
+        .then((result) {
+      if (result == null) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => MyHomePage()));
+      } else {
+        Util().showToast("Something wen't wrong", context);
+      }
+    });
+  }
+
+  void _areAllFieldsFilled(){
+    if(_emailTextController.text.isNotEmpty && _passwordTextController.text.isNotEmpty){
+      _authenticate(_emailTextController.text, _passwordTextController.text);
+    }else {
+      Util().showToast("Fill out all fields", context);
+
+    }
+
+  }
 
   Color getColorFromHex(String hexColor) {
     hexColor = hexColor.replaceAll("#", "");
@@ -56,8 +81,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 100,
                   ),
-
-
                   TextField(
                     style: TextStyle(color: Colors.white),
                     controller: _emailTextController,
@@ -86,8 +109,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 20,
                   ),
                   TextField(
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white,),
                     controller: _passwordTextController,
+                    obscureText: true,
                     decoration: InputDecoration(
                       enabled: true,
                       enabledBorder: OutlineInputBorder(
@@ -121,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         primary: getColorFromHex("#F9C906"),
                       ),
                       onPressed: () {
-                        _navigateToRegisterScreen(MyHomePage());
+                        _areAllFieldsFilled();
                       }),
                   TextButton(
                     child: Text(
